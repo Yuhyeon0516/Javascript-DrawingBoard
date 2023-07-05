@@ -1,10 +1,14 @@
 const modeBtn = document.querySelector("#mode-btn");
+const destroyBtn = document.querySelector("#destroy-btn");
+const eraserBtn = document.querySelector("#eraser-btn");
 const colorOptions = Array.from(document.querySelectorAll(".color-option"));
 const lineWidth = document.querySelector("#line-width");
 const color = document.querySelector("#color");
 const canvas = document.querySelector("canvas");
-canvas.width = 800;
-canvas.height = 800;
+const CANVAS_WIDTH = 800;
+const CANVAS_HEIGHT = 800;
+canvas.width = CANVAS_WIDTH;
+canvas.height = CANVAS_HEIGHT;
 
 const ctx = canvas.getContext("2d");
 ctx.lineWidth = lineWidth.value;
@@ -32,7 +36,7 @@ function cancelPainting() {
 
 function onCanvasClick() {
   if (isFilling) {
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   }
 }
 
@@ -70,5 +74,18 @@ function onModeClick() {
     modeBtn.innerText = "Draw";
   }
 }
-
 modeBtn.addEventListener("click", onModeClick);
+
+function onDestroyClick() {
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+}
+destroyBtn.addEventListener("click", onDestroyClick);
+
+function onEraserClick() {
+  ctx.strokeStyle = "white";
+  isFilling = false;
+  modeBtn.innerText = "Fill";
+}
+
+eraserBtn.addEventListener("click", onEraserClick);
