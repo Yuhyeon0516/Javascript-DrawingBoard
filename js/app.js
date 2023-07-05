@@ -1,3 +1,4 @@
+const saveBtn = document.querySelector("#save");
 const textInput = document.querySelector("#text");
 const fileInput = document.querySelector("#file");
 const modeBtn = document.querySelector("#mode-btn");
@@ -115,3 +116,12 @@ function onFileChange(event) {
   };
 }
 fileInput.addEventListener("change", onFileChange);
+
+function onSaveClick() {
+  const url = canvas.toDataURL();
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "myDrawing.png";
+  a.click();
+}
+saveBtn.addEventListener("click", onSaveClick);
