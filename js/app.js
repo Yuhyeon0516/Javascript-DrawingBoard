@@ -1,3 +1,4 @@
+const fileInput = document.querySelector("#file");
 const modeBtn = document.querySelector("#mode-btn");
 const destroyBtn = document.querySelector("#destroy-btn");
 const eraserBtn = document.querySelector("#eraser-btn");
@@ -89,3 +90,14 @@ function onEraserClick() {
 }
 
 eraserBtn.addEventListener("click", onEraserClick);
+
+function onFileChange(event) {
+  const file = event.target.files[0];
+  const url = URL.createObjectURL(file);
+  const image = new Image();
+  image.src = url;
+  image.onload = () => {
+    ctx.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  };
+}
+fileInput.addEventListener("change", onFileChange);
