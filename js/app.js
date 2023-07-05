@@ -1,3 +1,4 @@
+const textInput = document.querySelector("#text");
 const fileInput = document.querySelector("#file");
 const modeBtn = document.querySelector("#mode-btn");
 const destroyBtn = document.querySelector("#destroy-btn");
@@ -13,6 +14,7 @@ canvas.height = CANVAS_HEIGHT;
 
 const ctx = canvas.getContext("2d");
 ctx.lineWidth = lineWidth.value;
+ctx.lineCap = "round";
 
 let isPainting = false;
 let isFilling = false;
@@ -41,11 +43,23 @@ function onCanvasClick() {
   }
 }
 
+function onDoubleClick(event) {
+  const text = textInput.value;
+  if (text !== "") {
+    ctx.save();
+    ctx.lineWidth = 1;
+    ctx.font = "68px serif";
+    ctx.fillText(text, event.offsetX, event.offsetY);
+    ctx.restore();
+  }
+}
+
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", startPainting);
 canvas.addEventListener("mouseup", cancelPainting);
 canvas.addEventListener("mouseleave", cancelPainting);
 canvas.addEventListener("click", onCanvasClick);
+canvas.addEventListener("dblclick", onDoubleClick);
 
 function onLineWidthChange(event) {
   ctx.lineWidth = event.target.value;
